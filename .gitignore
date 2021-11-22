@@ -1,5 +1,6 @@
 # project specific
 data/
+dl.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
