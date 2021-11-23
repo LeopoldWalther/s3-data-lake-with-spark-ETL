@@ -1,6 +1,7 @@
 # project specific
 data/
 dl.cfg
+env380/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
