@@ -2,6 +2,7 @@
 data/
 dl.cfg
 env380/
+.DS_Store
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
