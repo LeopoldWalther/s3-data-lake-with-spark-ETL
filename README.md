@@ -25,14 +25,15 @@ The task is to build an ETL pipeline that extracts their data from S3, processes
 Here you can see the files of the project with a short description:
 
 ```
-AWS-S3-TO-REDSHIFT-ETL_PIPELINE/
+S3-DATA-LAKE-WITH-SPARK-ETL/
 │
 ├── README.md
+├── data/ 
+    ├── log-data/
+    ├── song_data/ 
+├── dl.cfg -->config file with all necessary details to run on aws
+├── etl.py --> script reads data from S3, transforms them to five tables, and writes them to S3
 ├── requirements.txt
-├── dl.cfg -->config file with all necessary details to run cluster on aws
-├── app/ 
-    ├── 
-    ├── 
 ├── prototype/
     ├── dev_notebook.ipynb --> jupyter notebook for developing the code which later was moved to app/
 ├── LICENSE
@@ -41,16 +42,59 @@ AWS-S3-TO-REDSHIFT-ETL_PIPELINE/
 ```
 ## How To Run<a name="execution"></a>
 
-- STEP 1:  
-  
-- Step 2: 
+- STEP 1: Create a virtual environment with Python 3.8 using the requirements.txt file in this project.
 
+- Step 2: Create a dl.cfg file with the following structure containing your AWS credentials (make sure to not include your AWS access keys in your code when sharing this project!):
+```
+[AWS]
+AWS_ACCESS_KEY_ID='<your access key>'
+AWS_SECRET_ACCESS_KEY='<your secret key>'
+
+[S3]
+SOURCE_S3_BUCKET ='s3a://udacity-dend/'
+DEST_S3_BUCKET =''
+```
+- STEP 3: Either run the dev_notebook.ipynb or run the etl.py file in the terminal.
 
 ## Data Model<a name="model"></a>
 
-
-## Results<a name="results"></a>
-
+- Fact Table
+  - songplays - records in log data associated with song plays i.e. records with page NextSong
+    - songplay_id, 
+    - start_time, 
+    - user_id, level, 
+    - song_id, 
+    - artist_id, 
+    - session_id, 
+    - location, 
+    - user_agent
+  
+- Dimension Tables
+  - users - users in the app
+    - user_id, 
+    - first_name, 
+    - last_name, 
+    - gender, level
+  - songs - songs in music database
+    - song_id, 
+    - title, 
+    - artist_id, 
+    - year, 
+    - duration 
+  - artists - artists in music database
+    - artist_id, 
+    - name, 
+    - location, 
+    - lattitude, 
+    - longitude
+  - time - timestamps of records in songplays broken down into specific units
+    - start_time, 
+    - hour, 
+    - day, 
+    - week, 
+    - month, 
+    - year, 
+    - weekday
 
 ## Licensing, Authors, Acknowledgements<a name="licensing"></a>
 

@@ -2,15 +2,19 @@ import configparser
 from datetime import datetime
 import os
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import udf, col
+from pyspark.sql.functions import col
+from pyspark.sql.functions import from_unixtime
+from pyspark.sql.functions import monotonically_increasing_id
 from pyspark.sql.functions import year, month, dayofmonth, hour, weekofyear, date_format
-
 
 config = configparser.ConfigParser()
 config.read('dl.cfg')
 
-os.environ['AWS_ACCESS_KEY_ID']=config['AWS_ACCESS_KEY_ID']
-os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS_SECRET_ACCESS_KEY']
+os.environ['AWS_ACCESS_KEY_ID']=config['AWS']['AWS_ACCESS_KEY_ID']
+os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS']['AWS_SECRET_ACCESS_KEY']
+
+SOURCE_S3_BUCKET = config['S3']['SOURCE_S3_BUCKET']
+DEST_S3_BUCKET = config['S3']['DEST_S3_BUCKET']
 
 
 def create_spark_session():
@@ -29,7 +33,7 @@ def process_song_data(spark, input_data, output_data):
             spark {object}: SparkSession object
             input_data {object}: Source S3 bucket
             output_data {object}: Target S3 bucket
-            
+
         Returns:
             None
     """
